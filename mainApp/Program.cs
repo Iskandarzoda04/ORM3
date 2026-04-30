@@ -1,9 +1,12 @@
-﻿[30.04.2026 15:54] Ahmad: using Domain;
-using Infrastructure.Services;
-using Microsoft.Extensions.DependencyInjection;
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+﻿using System;
+using Dapper;
+using Domain;
+using Infrastructure;
+using Infrastructure.Interfacce;
+
+
 // var service = new UserService();
-// service.AddUser(new User
+// service.Add(new User
 // {
 //     UserName = Console.ReadLine(),
 //     Email = Console.ReadLine(),
@@ -13,7 +16,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 
 // var service3 = new UserService();
-// service3.GetUserById(4);
+// service3.GetById(4);
 
 // var service4 = new UserService();
 // service4.UpdateUser(new User
@@ -26,10 +29,10 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 //     Email = "updatedemail@example.com",
 
 // var service2 = new UserService();
-// service2.GetAllUsers();
+// service2.GetAll();
 
 // var postService = new PostService();
-// postService.AddPost(new Post
+// postService.Add(new Post
 // {
 //     UserId = 1,
 //     Content = "Hello, this is Ahmad",
@@ -37,13 +40,13 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 // });
 
 // var postService2 = new PostService();
-// postService2.GetAllPosts();
+// postService2.GetAll();
 
 // var postService3 = new PostService();
-// postService3.GetPostById(1);
+// postService3.GetById(1);
 
 // var postService4 = new PostService();
-// postService4.UpdatePost(new Post
+// postService4.Update(new Post
 // {
 //     PostId = 1,
 //     UserId = 1,
@@ -52,7 +55,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 // });
 
 // var likeService = new LikeService();
-// likeService.AddLike(new Likes
+// likeService.Add(new Likes
 // {
 //     UserId = 1,
 //     PostId = 1,
@@ -60,13 +63,13 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 // });
 
 // var likeService2 = new LikeService();
-// likeService2.GetAllLikes();
+// likeService2.GetAll();
 
 
 
 
 // var commentService = new CommentService();
-// commentService.AddComment(new Comments
+// commentService.Add(new Comments
 // {
 //     UserId = 1,
 //     PostId = 1,
@@ -75,10 +78,8 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 // });
 
 // var commentService2 = new CommentService();
-// commentService2.GetAllComments();
+// commentService2.GetAll();
 
 // var commentService3 = new CommentService();
-// commentService3.GetCommentById(1);
+// commentService3.GetById(1);
 
-var StatisticsService = new Statistics();
-StatisticsService.GetTotalUsers();
