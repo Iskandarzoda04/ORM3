@@ -27,7 +27,7 @@ public class PostService : IPost
         using var con = context.GetConnection();
         con.Open();
 
-        string sql = "delete from Posts where postId = @Id";
+        string sql = "delete from Posts where id = @Id";
 
         con.Execute(sql, new { Id = id });
     }
@@ -48,7 +48,7 @@ public class PostService : IPost
         using var con = context.GetConnection();
         con.Open();
 
-        string sql = "select * from Posts where postId = @Id";
+        string sql = "select * from Posts where id = @Id";
 
         var post= con.QueryFirstOrDefault<Post>(sql, new { Id = id });
 
@@ -65,7 +65,7 @@ public class PostService : IPost
             content = @Content,
             creationDate = @CreationDate,
             likesCount = @LikesCount
-        where postId = @PostId";
+        where id = @PostId";
 
         con.Execute(sql, post);
 

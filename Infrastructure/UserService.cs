@@ -15,7 +15,7 @@ public class UserService : IUserService
         conn.Open();
 
         string sql = @"
-        insert into Users (username, email, full_name, registration_date)
+        insert into Users (username, email, Fullname, Registrationdate)
         values (@Username, @Email, @FullName, @RegistrationDate)";
 
         conn.Execute(sql, user);
@@ -26,7 +26,7 @@ public class UserService : IUserService
         using var con = context.GetConnection();
         con.Open();
 
-        string sql = "delete from Users where user_id = @Id";
+        string sql = "delete from Users where id = @Id";
 
         con.Execute(sql, new { Id = id });
     }
@@ -47,7 +47,7 @@ public class UserService : IUserService
         using var con = context.GetConnection();
         con.Open();
 
-        string sql = "select * from Users where user_id = @Id";
+        string sql = "select * from Users where id = @Id";
 
         var us = con.QueryFirstOrDefault<User>(sql, new { Id = id });
         return us;
@@ -62,9 +62,9 @@ public class UserService : IUserService
         update Users
         set username = @Username,
             email = @Email,
-            full_name = @FullName,
-            registration_date = @RegistrationDate
-        where user_id = @UserId";
+            Fullname = @FullName,
+            Registrationdate = @RegistrationDate
+        where id = @UserId";
 
         con.Execute(sql, user);
     }

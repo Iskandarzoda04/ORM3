@@ -16,7 +16,7 @@ public class LikeService : ILikes
 
         string sql = @"
         insert into Likes
-        (user_id, post_id, like_date)
+        (Userid, Postid, likedate)
         values
         (@UserId, @PostId, @LikeDate)";
 
@@ -28,7 +28,7 @@ public class LikeService : ILikes
         using var con = context.GetConnection();
         con.Open();
 
-        string sql = "delete from Likes where like_id = @Id";
+        string sql = "delete from Likes where id = @Id";
 
         con.Execute(sql, new { Id = id });
     }
@@ -49,7 +49,7 @@ public class LikeService : ILikes
         using var con = context.GetConnection();
         con.Open();
 
-        string sql = "select * from Likes where like_id = @Id";
+        string sql = "select * from Likes where id = @Id";
 
         var like = con.QueryFirstOrDefault<Like>(sql, new { Id = id });
         return like;
@@ -62,10 +62,10 @@ public class LikeService : ILikes
 
         string sql = @"
         update Likes
-        set user_id = @UserId,
-            post_id = @PostId,
-            like_date = @LikeDate
-        where like_id = @LikeId";
+        set userid = @UserId,
+            postid = @PostId,
+            likedate = @LikeDate
+        where id = @LikeId";
 
         con.Execute(sql, like);
     }

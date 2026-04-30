@@ -28,7 +28,7 @@ public class CommentService : IComment
         using var con = context.GetConnection();
         con.Open();
 
-        string sql = "delete from Comments where comment_id = @Id";
+        string sql = "delete from Comments where id = @Id";
 
         con.Execute(sql, new { Id = id });
     }
@@ -50,7 +50,7 @@ public class CommentService : IComment
         using var con = context.GetConnection();
         con.Open();
 
-        string sql = "select * from Comments where comment_id = @Id";
+        string sql = "select * from Comments where id = @Id";
 
         var comment = con.QueryFirstOrDefault<Comment>(sql, new { Id = id });
         return comment;
@@ -63,11 +63,11 @@ public class CommentService : IComment
 
         string sql = @"
         update Comments
-        set user_id = @UserId,
-            post_id = @PostId,
-            content = @Content,
-            creation_date = @CreationDate
-        where comment_id = @CommentId";
+        set Userid = @UserId,
+            Postid = @PostId,
+            Content = @Content,
+            CreationDate = @CreationDate
+        where id = @CommentId";
 
         con.Execute(sql, comment);
     }
