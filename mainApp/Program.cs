@@ -15,8 +15,8 @@ using Infrastructure.Interfacce;
 // });
 
 
-// var service3 = new UserService();
-// service3.GetById(4);
+ //var service3 = new UserService();
+ //service3.GetById(4);
 
 // var service4 = new UserService();
 // service4.UpdateUser(new User
