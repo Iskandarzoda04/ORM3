@@ -36,7 +36,7 @@ using Infrastructure.Interfacce;
 // {
 //     UserId = 1,
 //     Content = "Hello, this is Ahmad",
-//     CreationDate = DateOnly.FromDateTime(DateTime.Now)
+//     CreationDate =DateTime.Now
 // });
 
 // var postService2 = new PostService();
@@ -51,7 +51,7 @@ using Infrastructure.Interfacce;
 //     PostId = 1,
 //     UserId = 1,
 //     Content = "Updated post",
-//     CreationDate = DateTime.Now.ToString("2024-03-02")
+//     CreationDate = DateTime.Now
 // });
 
 // var likeService = new LikeService();
@@ -59,7 +59,7 @@ using Infrastructure.Interfacce;
 // {
 //     UserId = 1,
 //     PostId = 1,
-//     LikeDate = DateTime.Now.ToString("yyyy-MM-dd")
+//     LikeDate = DateTime.Now
 // });
 
 // var likeService2 = new LikeService();
@@ -74,7 +74,7 @@ using Infrastructure.Interfacce;
 //     UserId = 1,
 //     PostId = 1,
 //     Content = "This is a comment",
-//     CreationDate = DateTime.Now.ToString("2024-01-21")
+//     CreationDate = DateTime.Now
 // });
 
 // var commentService2 = new CommentService();
