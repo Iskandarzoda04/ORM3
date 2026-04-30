@@ -1,24 +1,24 @@
-using Npgsql;
 using Dapper;
 using Domain;
-using Infrastructure.Interfacce;
 using Infrastructure.Date;
+using Infrastructure.Interfacce;
 
-namespace Infrastructure;         
+namespace Infrastructure;
 
 public class UserService : IUserService
 {
-      private readonly DataContext context = new();
+    private readonly DataContext context = new();
 
     public void Add(User user)
     {
         using var conn = context.GetConnection();
         conn.Open();
 
-    string sql = @" insert into users(fullname, email, phone) values(@FullName, @Email, @Phone)";
+        string sql = @"
+        insert into Users (username, email, full_name, registration_date)
+        values (@Username, @Email, @FullName, @RegistrationDate)";
 
-    conn.Execute(sql, user);
-        
+        conn.Execute(sql, user);
     }
 
     public void Delete(int id)
@@ -26,10 +26,9 @@ public class UserService : IUserService
         using var con = context.GetConnection();
         con.Open();
 
-        var sql = "delete  from Usrs where id=@Id ";
+        string sql = "delete from Users where user_id = @Id";
 
-        con.Execute(sql, new{id});
-
+        con.Execute(sql, new { Id = id });
     }
 
     public List<User> GetAll()
@@ -37,12 +36,10 @@ public class UserService : IUserService
         using var con = context.GetConnection();
         con.Open();
 
-        string sql = "select from Users";
+        string sql = "select * from Users";
 
-        var us = con.Query<User>(sql).ToList();
-
-    return us;
-       
+        var us= con.Query<User>(sql).ToList();
+        return us;
     }
 
     public User GetById(int id)
@@ -50,32 +47,25 @@ public class UserService : IUserService
         using var con = context.GetConnection();
         con.Open();
 
-        var sql ="select from Users where id=@id";
+        string sql = "select * from Users where user_id = @Id";
 
-         var us = con.QueryFirstOrDefault<User>(sql, new { id });
-
-    return us;
-
+        var us = con.QueryFirstOrDefault<User>(sql, new { Id = id });
+        return us;
     }
 
     public void Update(User user)
     {
         using var con = context.GetConnection();
         con.Open();
-   
-         var sql = @"update users
-                set username = @username,
-                    email = @email,
-                    full_name = @fullname,
-                    registration_date = @date
-                WHERE user_id = @id";
 
-       var result = con.Execute(sql, user);
+        string sql = @"
+        update Users
+        set username = @Username,
+            email = @Email,
+            full_name = @FullName,
+            registration_date = @RegistrationDate
+        where user_id = @UserId";
 
-          if(result > 0)
-        Console.WriteLine("User updated successfully");
-    else
-        Console.WriteLine("User not found");
+        con.Execute(sql, user);
     }
-
 }

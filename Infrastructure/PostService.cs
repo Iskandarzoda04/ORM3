@@ -1,80 +1,74 @@
-using Npgsql;
 using Dapper;
 using Domain;
-using Infrastructure.Interfacce;
 using Infrastructure.Date;
+using Infrastructure.Interfacce;
 
 namespace Infrastructure;
 
-
 public class PostService : IPost
 {
-     private readonly DataContext context = new();
+    private readonly DataContext context = new();
+
     public void Add(Post post)
     {
-          using var con = context.GetConnection();
-    con.Open();
+        using var con = context.GetConnection();
+        con.Open();
 
-    string sql = @"insert into posts
-                   (userid, content, creationdate, likescount)
-                   values
-                   (@UserId, @Content, @CreationDate, @LikesCount)";
+        string sql = @"insert into Posts
+        (userId, content, creationDate, likesCount)
+        values
+        (@UserId, @Content, @CreationDate, @LikesCount)";
 
-     con.Execute(sql, post);
+        con.Execute(sql, post);
     }
 
     public void Delete(int id)
     {
-         using var con = context.GetConnection();
+        using var con = context.GetConnection();
         con.Open();
 
-        var sql = "delete  from Posts where id=@Id ";
+        string sql = "delete from Posts where postId = @Id";
 
-        con.Execute(sql, new{id});
+        con.Execute(sql, new { Id = id });
     }
 
     public List<Post> GetAll()
     {
-         using var con = context.GetConnection();
+        using var con = context.GetConnection();
         con.Open();
 
-        string sql = "select from Posts";
+        string sql = "select * from Posts";
 
-        var pst = con.Query<Post>(sql).ToList();
-
-    return pst;
+        var posts = con.Query<Post>(sql).ToList();
+        return posts;
     }
 
     public Post GetById(int id)
     {
-       using var con = context.GetConnection();
+        using var con = context.GetConnection();
         con.Open();
 
-        var sql ="select from Users where id=@id";
+        string sql = "select * from Posts where postId = @Id";
 
-         var pst = con.QueryFirstOrDefault<Post>(sql, new { id });
+        var post= con.QueryFirstOrDefault<Post>(sql, new { Id = id });
 
-    return pst;
+        return post;
     }
 
     public void Update(Post post)
     {
-       using var con = context.GetConnection();
-       con.Open();
+        using var con = context.GetConnection();
+        con.Open();
 
- var  sql = @"update posts
-                   set userid = @UserId,
-                       content = @Content,
-                       creationdate = @CreationDate,
-                       likescount = @LikesCount
-                   where postid = @PostId";
+        string sql = @" update Posts
+        set userId = @UserId,
+            content = @Content,
+            creationDate = @CreationDate,
+            likesCount = @LikesCount
+        where postId = @PostId";
 
-    int rst = con.Execute(sql, post);
+        con.Execute(sql, post);
 
-    if (rst > 0)
-        Console.WriteLine("Post updated successfully");
-    else
-        Console.WriteLine("Post not found");
+        
     }
-
 }

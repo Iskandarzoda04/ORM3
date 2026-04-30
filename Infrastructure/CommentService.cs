@@ -1,4 +1,3 @@
-using Npgsql;
 using Dapper;
 using Domain;
 using Infrastructure.Interfacce;
@@ -6,21 +5,22 @@ using Infrastructure.Date;
 
 namespace Infrastructure;
 
-
 public class CommentService : IComment
 {
-       private readonly DataContext context = new();
+    private readonly DataContext context = new();
+
     public void Add(Comment comment)
     {
         using var con = context.GetConnection();
-    con.Open();
+        con.Open();
 
-    string sql = @"insert into comments
-                   (user_id, post_id, content, creation_date)
-                   values
-                   (@UserId, @PostId, @Content, @CreationDate)";
+        string sql = @"
+        insert into Comments
+        (user_id, post_id, content, creation_date)
+        values
+        (@UserId, @PostId, @Content, @CreationDate)";
 
-     con.Execute(sql, comment);
+        con.Execute(sql, comment);
     }
 
     public void Delete(int id)
@@ -28,9 +28,9 @@ public class CommentService : IComment
         using var con = context.GetConnection();
         con.Open();
 
-        var sql = "delete  from Comments where id=@Id ";
+        string sql = "delete from Comments where comment_id = @Id";
 
-        con.Execute(sql, new{id});
+        con.Execute(sql, new { Id = id });
     }
 
     public List<Comment> GetAll()
@@ -38,43 +38,37 @@ public class CommentService : IComment
         using var con = context.GetConnection();
         con.Open();
 
-        string sql = "select from Comments";
+        string sql = "select * from Comments";
 
-        var cmt = con.Query<Comment>(sql).ToList();
+        var comments = con.Query<Comment>(sql).ToList();
 
-    return cmt;
+        return comments;
     }
 
     public Comment GetById(int id)
     {
-       using var con = context.GetConnection();
+        using var con = context.GetConnection();
         con.Open();
 
-        var sql ="select from Comments where id=@id";
+        string sql = "select * from Comments where comment_id = @Id";
 
-         var cmt = con.QueryFirstOrDefault<Comment>(sql, new { id });
-
-    return cmt;
+        var comment = con.QueryFirstOrDefault<Comment>(sql, new { Id = id });
+        return comment;
     }
 
     public void Update(Comment comment)
     {
         using var con = context.GetConnection();
-    con.Open();
+        con.Open();
 
-    string sql = @"update comments
-                   set user_id = @UserId,
-                       post_id = @PostId,
-                       content = @Content,
-                       creation_date = @CreationDate
-                   where comment_id = @CommentId";
+        string sql = @"
+        update Comments
+        set user_id = @UserId,
+            post_id = @PostId,
+            content = @Content,
+            creation_date = @CreationDate
+        where comment_id = @CommentId";
 
-    int result = con.Execute(sql, comment);
-
-    if (result > 0)
-        Console.WriteLine("Comment updated successfully");
-    else
-        Console.WriteLine("Comment not found");
+        con.Execute(sql, comment);
     }
-
 }

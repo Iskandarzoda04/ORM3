@@ -1,94 +1,84 @@
-﻿using Domain;
-using Infrastructure;
+﻿[30.04.2026 15:54] Ahmad: using Domain;
+using Infrastructure.Services;
+using Microsoft.Extensions.DependencyInjection;
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+// var service = new UserService();
+// service.AddUser(new User
+// {
+//     UserName = Console.ReadLine(),
+//     Email = Console.ReadLine(),
+//     FullName = Console.ReadLine(),
+//     RegistrationDate =  DateTime.Now
+// });
 
-UserService userService = new UserService();
-PostService postService = new PostService();
-CommentService commentService = new CommentService();
-LikeService likeService = new LikeService();
 
-while (true)
-{
-    Console.WriteLine("\n1. Add User");
-    Console.WriteLine("2. Show Users");
-    Console.WriteLine("3. Add Post");
-    Console.WriteLine("4. Add Comment");
-    Console.WriteLine("5. Add Like");
-    Console.WriteLine("0. Exit");
+// var service3 = new UserService();
+// service3.GetUserById(4);
 
-    var choice = Console.ReadLine();
+// var service4 = new UserService();
+// service4.UpdateUser(new User
+// {
+//     UserId = 1,
+//     UserName = "UpdatedUserName",
+//     FullName = "Updated Full Name",
+//     RegistrationDate = DateTime.Now.ToString("2004-06-01")
+// });
+//     Email = "updatedemail@example.com",
 
-    if (choice == "0") break;
+// var service2 = new UserService();
+// service2.GetAllUsers();
 
-    switch (choice)
-    {
-        case "1":
-            var user = new User();
+// var postService = new PostService();
+// postService.AddPost(new Post
+// {
+//     UserId = 1,
+//     Content = "Hello, this is Ahmad",
+//     CreationDate = DateOnly.FromDateTime(DateTime.Now)
+// });
 
-            Console.Write("Username: ");
-            user.Username = Console.ReadLine()!;
+// var postService2 = new PostService();
+// postService2.GetAllPosts();
 
-            Console.Write("Email: ");
-            user.Email = Console.ReadLine()!;
+// var postService3 = new PostService();
+// postService3.GetPostById(1);
 
-            Console.Write("FullName: ");
-            user.FullName = Console.ReadLine()!;
+// var postService4 = new PostService();
+// postService4.UpdatePost(new Post
+// {
+//     PostId = 1,
+//     UserId = 1,
+//     Content = "Updated post",
+//     CreationDate = DateTime.Now.ToString("2024-03-02")
+// });
 
-            user.RegistrationDate = DateTime.Now;
+// var likeService = new LikeService();
+// likeService.AddLike(new Likes
+// {
+//     UserId = 1,
+//     PostId = 1,
+//     LikeDate = DateTime.Now.ToString("yyyy-MM-dd")
+// });
 
-            userService.Add(user);
-            break;
+// var likeService2 = new LikeService();
+// likeService2.GetAllLikes();
 
-        case "2":
-            var users = userService.GetAll();
 
-            foreach (var u in users)
-                Console.WriteLine($"{u.UserId} | {u.Username} | {u.Email}");
-            break;
 
-        case "3":
-            var post = new Post();
 
-            Console.Write("UserId: ");
-            post.UserId = int.Parse(Console.ReadLine()!);
+// var commentService = new CommentService();
+// commentService.AddComment(new Comments
+// {
+//     UserId = 1,
+//     PostId = 1,
+//     Content = "This is a comment",
+//     CreationDate = DateTime.Now.ToString("2024-01-21")
+// });
 
-            Console.Write("Content: ");
-            post.Content = Console.ReadLine()!;
+// var commentService2 = new CommentService();
+// commentService2.GetAllComments();
 
-            post.CreationDate = DateTime.Now;
-            post.LikesCount = 0;
+// var commentService3 = new CommentService();
+// commentService3.GetCommentById(1);
 
-            postService.Add(post);
-            break;
-
-        case "4":
-            var comment = new Comment();
-
-            Console.Write("UserId: ");
-            comment.UserId = int.Parse(Console.ReadLine()!);
-
-            Console.Write("PostId: ");
-            comment.PostId = int.Parse(Console.ReadLine()!);
-
-            Console.Write("Content: ");
-            comment.Content = Console.ReadLine()!;
-
-            comment.CreationDate = DateTime.Now;
-
-            commentService.Add(comment);
-            break;
-
-        case "5":
-            var like = new Like();
-
-            Console.Write("UserId: ");
-            like.UserId = int.Parse(Console.ReadLine()!);
-
-            Console.Write("PostId: ");
-            like.PostId = int.Parse(Console.ReadLine()!);
-
-            like.LikeDate = DateTime.Now;
-
-            likeService.Add(like);
-            break;
-    }
-}
+var StatisticsService = new Statistics();
+StatisticsService.GetTotalUsers();
