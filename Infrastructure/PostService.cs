@@ -9,7 +9,7 @@ public class PostService : IPost
 {
     private readonly DataContext context = new();
 
-    public void Add(Post post)
+    public async Task Add(Post post)
     {
         using var con = context.GetConnection();
         con.Open();
@@ -19,20 +19,20 @@ public class PostService : IPost
         values
         (@UserId, @Content, @CreationDate, @LikesCount)";
 
-        con.Execute(sql, post);
+       await con.ExecuteAsync(sql, post);
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
         using var con = context.GetConnection();
         con.Open();
 
         string sql = "delete from Posts where id = @Id";
 
-        con.Execute(sql, new { Id = id });
+        await con.ExecuteAsync(sql, new { Id = id });
     }
 
-    public List<Post> GetAll()
+    public  async Task<List<Post>> GetAll()
     {
         using var con = context.GetConnection();
         con.Open();
@@ -43,7 +43,7 @@ public class PostService : IPost
         return posts;
     }
 
-    public Post GetById(int id)
+    public  async Task<Post> GetById(int id)
     {
         using var con = context.GetConnection();
         con.Open();
@@ -55,7 +55,7 @@ public class PostService : IPost
         return post;
     }
 
-    public void Update(Post post)
+    public async Task Update(Post post)
     {
         using var con = context.GetConnection();
         con.Open();
@@ -67,7 +67,7 @@ public class PostService : IPost
             likesCount = @LikesCount
         where id = @PostId";
 
-        con.Execute(sql, post);
+        await con.ExecuteAsync(sql, post);
 
         
     }

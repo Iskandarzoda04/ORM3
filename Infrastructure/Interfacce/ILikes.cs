@@ -4,9 +4,9 @@ namespace Infrastructure.Interfacce;
 public interface ILikes
 {
     
-      void Add(Like like);
-    List<Like> GetAll();
-    Like GetById(int id);
-    void Update(Like like);
-    void Delete(int id);
+      Task Add(Like like);
+   Task<List<Like>> GetAll();
+    Task<Like> GetById(int id);
+    Task Update(Like like);
+    Task Delete(int id);
 }

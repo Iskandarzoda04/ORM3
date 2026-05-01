@@ -4,9 +4,9 @@ namespace Infrastructure.Interfacce;
 
 public interface IUserService
 {
-    void Add(User user);
-    List<User> GetAll();
-    User GetById(int id);
-    void Update(User user);
-    void Delete(int id);
+     Task Add(User user);
+    Task<List<User>> GetAll();
+    Task<User> GetById(int id);
+    Task Update(User user);
+    Task Delete(int id);
 }

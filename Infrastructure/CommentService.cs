@@ -2,6 +2,7 @@ using Dapper;
 using Domain;
 using Infrastructure.Interfacce;
 using Infrastructure.Date;
+using System.Runtime.CompilerServices;
 
 namespace Infrastructure;
 
@@ -9,7 +10,7 @@ public class CommentService : IComment
 {
     private readonly DataContext context = new();
 
-    public void Add(Comment comment)
+    public  async Task Add(Comment comment)
     {
         using var con = context.GetConnection();
         con.Open();
@@ -23,7 +24,7 @@ public class CommentService : IComment
         con.Execute(sql, comment);
     }
 
-    public void Delete(int id)
+    public  async Task Delete(int id)
     {
         using var con = context.GetConnection();
         con.Open();
@@ -33,7 +34,7 @@ public class CommentService : IComment
         con.Execute(sql, new { Id = id });
     }
 
-    public List<Comment> GetAll()
+    public async Task<List<Comment>> GetAll()
     {
         using var con = context.GetConnection();
         con.Open();
@@ -45,7 +46,7 @@ public class CommentService : IComment
         return comments;
     }
 
-    public Comment GetById(int id)
+    public  async Task<Comment> GetById(int id)
     {
         using var con = context.GetConnection();
         con.Open();
@@ -56,7 +57,7 @@ public class CommentService : IComment
         return comment;
     }
 
-    public void Update(Comment comment)
+    public  async Task Update(Comment comment)
     {
         using var con = context.GetConnection();
         con.Open();
@@ -71,4 +72,7 @@ public class CommentService : IComment
 
         con.Execute(sql, comment);
     }
+
+   
+
 }

@@ -9,7 +9,7 @@ public class UserService : IUserService
 {
     private readonly DataContext context = new();
 
-    public void Add(User user)
+    public async Task Add(User user)
     {
         using var conn = context.GetConnection();
         conn.Open();
@@ -18,20 +18,20 @@ public class UserService : IUserService
         insert into Users (username, email, Fullname, Registrationdate)
         values (@Username, @Email, @FullName, @RegistrationDate)";
 
-        conn.Execute(sql, user);
+       await conn.ExecuteAsync(sql, user);
     }
 
-    public void Delete(int id)
+    public async Task Delete(int id)
     {
         using var con = context.GetConnection();
         con.Open();
 
         string sql = "delete from Users where id = @Id";
 
-        con.Execute(sql, new { Id = id });
+        await con.ExecuteAsync(sql, new { Id = id });
     }
 
-    public List<User> GetAll()
+    public  async Task<List<User>> GetAll()
     {
         using var con = context.GetConnection();
         con.Open();
@@ -42,7 +42,7 @@ public class UserService : IUserService
         return us;
     }
 
-    public User GetById(int id)
+    public async Task<User> GetById(int id)
     {
         using var con = context.GetConnection();
         con.Open();
@@ -53,7 +53,7 @@ public class UserService : IUserService
         return us;
     }
 
-    public void Update(User user)
+    public async Task Update(User user)
     {
         using var con = context.GetConnection();
         con.Open();
@@ -66,6 +66,6 @@ public class UserService : IUserService
             Registrationdate = @RegistrationDate
         where id = @UserId";
 
-        con.Execute(sql, user);
+       await con.ExecuteAsync(sql, user);
     }
 }
